@@ -1,0 +1,34 @@
+<div id="app"></div>
+
+<script>
+function defineReactive (obj, key, val) {
+    // 属性拦截
+    Object.defineProperty(obj, key, {
+        get() {
+            console.log(`get: ${key}:${val}`)
+            return val
+        },
+        set(newVal) {
+            if (newVal !== val) {
+                val = newVal
+                // 通知视图更新
+                update()
+            }
+        }
+    })
+}
+
+const obj = {}
+// 响应式处理
+defineReactive(obj, 'foo', 'foo')
+obj.foo = new Date().toLocaleTimeString()
+//更新函数：描述了视图内容
+function update() {
+    
+    app.innerText = obj.foo
+}
+
+setInterval(()=> {
+    obj.foo = new Date().toLocaleTimeString()
+}, 1000)
+</script>
