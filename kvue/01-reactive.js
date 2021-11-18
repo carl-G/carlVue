@@ -12,6 +12,7 @@ function defineReactive (obj, key, val) {
         },
         set(newVal) {
             if (newVal !== val) {
+                observe(newVal)
                 val = newVal
             }
         }
